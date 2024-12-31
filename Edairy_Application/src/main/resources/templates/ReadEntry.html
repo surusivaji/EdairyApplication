@@ -17,7 +17,7 @@
 		      <span class="navbar-toggler-icon"></span>
 		    </button>
 		    <div class="collapse navbar-collapse" id="navbarScroll">
-		      <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
+		      <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll">
 		        <li class="nav-item">
 		          <a class="nav-link active" aria-current="page" th:href="@{/user/home}"><i class="fa-solid fa-house"></i> Home</a>
 		        </li>
@@ -29,7 +29,7 @@
 		        </li>
 		      </ul>
 		      <ul class="navbar-nav ms-auto">
-					<li class="list-item"><a href="#" class="nav-link active btn btn-primary me-2"><i class="fa-solid fa-user"></i> <span th:text="${username}"></span></a></li>
+					<li class="list-item"><a th:href="@{/user/viewprofile}" class="nav-link active btn btn-primary me-2"><i class="fa-solid fa-user"></i> <span th:text="${username}"></span></a></li>
 					<li class="list-item"><a th:href="@{/user/logout}" class="nav-link active btn btn-primary"><i class="fa-solid fa-power-off"></i> Logout</a></li>
 				</ul>
 		    </div>

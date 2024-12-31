@@ -4,6 +4,9 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.siva.edairy.model.Entry;
@@ -32,9 +35,10 @@ public class IEntryServiceImpl implements IEntryService {
 	}
 	
 	@Override
-	public List<Entry> getAllEntries(User user) {
+	public Page<Entry> getAllEntries(User user, int pageNo) {
 		try {
-			List<Entry> entries = entryRepository.findByUser(user);
+			Pageable pageable = PageRequest.of(pageNo, 8);
+			Page<Entry> entries = entryRepository.findByUser(user, pageable);
 			return entries;
 		}
 		catch (Exception e) {
@@ -61,6 +65,18 @@ public class IEntryServiceImpl implements IEntryService {
 	public boolean removeEntryById(int id) {
 		try {
 			entryRepository.deleteById(id);
+			return true;
+		}
+		catch (Exception e) {
+			return false;
+		}
+	}
+	
+	@Override
+	public boolean removeEntriesByUser(User user) {
+		try {
+			List<Entry> entries = entryRepository.findByUser(user);
+			entryRepository.deleteAllInBatch(entries);
 			return true;
 		}
 		catch (Exception e) {

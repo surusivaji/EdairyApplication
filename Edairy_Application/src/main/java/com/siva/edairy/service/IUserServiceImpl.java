@@ -80,6 +80,48 @@ public class IUserServiceImpl implements IUserService {
 		}
 	}
 	
+	@Override
+	public boolean removeUserById(int id) {
+		try {
+			userRepository.deleteById(id);
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
+	
+	@Override
+	public User getUserByEmailAndMobile(String email, String mobile) {
+		try {
+			User user = userRepository.findByEmailAndMobile(email, mobile);
+			if (user!=null) {
+				return user;
+			}
+			else {
+				return null;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
+	@Override
+	public User getUserByEmail(String email) {
+		try {
+			User user = userRepository.findByEmail(email);
+			if (user!=null) {
+				return user;
+			}
+			else {
+				return null;
+			} 
+		} catch (Exception e) {
+			return null;
+		}
+	}
+	
 	public void removeSessionMessage() {
 		HttpSession session = ((ServletRequestAttributes)(RequestContextHolder.getRequestAttributes())).getRequest().getSession();
 		session.removeAttribute("successMsg");

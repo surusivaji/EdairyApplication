@@ -1,6 +1,6 @@
 package com.siva.edairy.service;
 
-import java.util.List;
+import org.springframework.data.domain.Page;
 
 import com.siva.edairy.model.Entry;
 import com.siva.edairy.model.User;
@@ -8,8 +8,10 @@ import com.siva.edairy.model.User;
 public interface IEntryService {
 	
 	Entry addEntry(Entry entry);
-	List<Entry> getAllEntries(User user);
+	Page<Entry> getAllEntries(User user, int pageNo);
 	Entry getEntryById(int id);
 	boolean removeEntryById(int id);
+	boolean removeEntriesByUser(User user);
+	
 	
 }

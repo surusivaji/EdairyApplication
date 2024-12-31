@@ -1,9 +1,9 @@
 package com.siva.edairy.controller;
 
 import java.sql.Date;
-import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -101,12 +101,15 @@ public class HomeController {
 	}
 	
 	@GetMapping("/user/displayentries")
-	public String displayEntries(HttpSession session, Model model) {
+	public String displayEntries(HttpSession session,@RequestParam(defaultValue="0") int pageNo, Model model) {
 		User user = (User) session.getAttribute("user");
 		if (user!=null) {
 			model.addAttribute("username", user.getFullname());
-			List<Entry> allEntries = entryService.getAllEntries(user);
-			model.addAttribute("entries", allEntries);
+			Page<Entry> pages = entryService.getAllEntries(user, pageNo);
+			model.addAttribute("currentPage", pageNo);
+			model.addAttribute("totalElements", pages.getTotalElements());
+			model.addAttribute("totalPages", pages.getTotalPages());
+			model.addAttribute("entries", pages.getContent());
 			return "DisplayEntries";
 		}
 		else {
@@ -222,6 +225,119 @@ public class HomeController {
 		}
 		else {
 			return "redirect:/user/displayentries";
+		}
+	}
+	
+	@GetMapping("/user/viewprofile")
+	public String viewUserProfile(HttpSession session, Model model) {
+		User user = (User) session.getAttribute("user");
+		if (user!=null) {
+			model.addAttribute("user", user);
+			return "ViewProfile";
+		}
+		else {
+			return "redirect:/login";
+		}
+	}
+	
+	@GetMapping("/user/editprofile/{id}")
+	public String updateUserProfile(HttpSession session, Model model, @PathVariable("id") int id) {
+		User user = (User) session.getAttribute("user");
+		if (user!=null) {
+			model.addAttribute("user", user);
+			return "EditProfile";
+		}
+		else {
+			return "redirect:/login";
+		}
+		
+	}
+	
+	@PostMapping("/user/updateInformation")
+	public String updateUserInformation(@ModelAttribute User user, HttpSession session, Model model, @RequestParam("date") String date) {
+		user.setDateOfBirth(Date.valueOf(date));
+		User update = userService.addUser(user);
+		if (update!=null) {
+			model.addAttribute("user", update);
+			session.setAttribute("successMsg", "user information updated successfully");
+			return "redirect:/user/viewprofile";
+		}
+		else {
+			session.setAttribute("failMsg", "sorry something went wrong on the server");
+			return "redirect:/user/viewprofile";
+		}
+	}
+	
+	@GetMapping("/user/deleteprofile/{id}")
+	public String deleteAccount(HttpSession session, Model model, @PathVariable("id") int id) {
+		User user = (User) session.getAttribute("user");
+		if (user!=null) {
+			boolean entryIsDelete = entryService.removeEntriesByUser(user);
+			boolean userIsDelete = userService.removeUserById(id);
+			if (entryIsDelete && userIsDelete) {
+				session.setAttribute("successMsg", "user account successfully deleted");
+				return "redirect:/login";
+			}
+			else {
+				session.setAttribute("failMsg", "sorry, something went wrong on the server");
+				return "redirect:/user/viewprofile";
+			}
+		}
+		else {
+			return "redirect:/login";
+		}
+	}
+	
+	@GetMapping("/forgotpassword")
+	public String forgotPassword() {
+		return "ForgotPassword";
+	}
+	
+	@PostMapping("/next")
+	public String emailAndMobileNumber(HttpSession session, @RequestParam("email") String email, @RequestParam("mobile") String mobile) {
+		User user = userService.getUserByEmailAndMobile(email, mobile);
+		if (user!=null) {
+			System.out.println(email);
+			session.setAttribute("email", email);
+			return "ForgotPassword1";
+		}
+		else {
+			session.setAttribute("failMsg", "Invalid Email And Mobile");
+			return "redirect:/forgotpassword";
+		}
+	}
+	
+	@PostMapping("/changepassword")
+	public String changePassword(HttpSession session, @RequestParam("password") String password, @RequestParam("cpassword") String cpassword) {
+		String email = (String) session.getAttribute("email");
+		if (email!=null) {
+			if (password.equals(cpassword)) {
+				User user = userService.getUserByEmail(email);
+				if (user!=null) {
+					user.setPassword(password);
+					User update = userService.addUser(user);
+					if (update!=null) {
+						session.setAttribute("successMsg", "password changed successfully");
+						return "redirect:/login";
+					}
+					else {
+						session.setAttribute("failMsg", "something went wrong");
+						return "ForgotPassword1";
+					}
+				}
+				else {
+					session.setAttribute("failMsg", "something went wrong");
+					return "ForgotPassword1";
+				}
+			}
+			else {
+				session.setAttribute("failMsg", "Both passwords are not same");
+				return "ForgotPassword1";
+			}
+		}
+		else {
+			session.setAttribute("failMsg", "something went wrong");
+			return "redirect:/login";
 		}
 	}
 
