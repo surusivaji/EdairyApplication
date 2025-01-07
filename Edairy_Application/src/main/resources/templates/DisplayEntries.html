@@ -65,7 +65,7 @@
   								</thead>
   								<tbody>
   									<tr th:each="entry:${entries}">
-  										<td th:text="${entry.entryDate}"></td>
+  										<td th:text="${#dates.format(entry.entryDate, 'dd-MM-yyyy')}"></td>
   										<td>
   											<a th:href="@{/user/editentry/{id}(id=${entry.id})}" class="btn btn-primary btn-sm me-2">Edit</a>
   											<a th:href="@{/user/readentry/{id}(id=${entry.id})}" class="btn btn-info btn-sm me-2">Read</a>
