@@ -100,8 +100,12 @@ src/
         <p>Open your browser and go to <code>http://localhost:8080</code>.</p>
     </li>
 </ol>
+<hr>
+<h2>📷 Screenshots</h2>
+
 
 <hr>
+
 
 <h2>🤝 Contributing</h2>
 <p>
