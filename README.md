@@ -152,8 +152,6 @@ src/
 
 <hr>
 
-<h2>🤝 Contributing</h2>
-<p>
-    Contributions are welcome!<br>
-    Feel free to open issues or submit pull requests to enhance the application.
-</p>
+
+<h3 align="center">😊 Enjoy Using E-Dairy Application</h3>
+
