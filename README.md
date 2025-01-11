@@ -77,34 +77,80 @@ src/
 
 <hr>
 
-<h2>🎯 Getting Started</h2>
-<ol>
-    <li><strong>Clone the Repository</strong>
-        <pre>
-        git clone https://github.com/your-username/ediary-application.git
-        cd ediary-application
-        </pre>
-    </li>
-    <li><strong>Set Up the Database</strong>
-        <ul>
-            <li>Create a MySQL database (e.g., <code>ediary_db</code>).</li>
-            <li>Update database configurations in <code>application.properties</code> file.</li>
-        </ul>
-    </li>
-    <li><strong>Run the Application</strong>
-        <pre>
-        mvn spring-boot:run
-        </pre>
-    </li>
-    <li><strong>Access the Application</strong>
-        <p>Open your browser and go to <code>http://localhost:8080</code>.</p>
-    </li>
-</ol>
-<hr>
 <h2>📷 Screenshots</h2>
+<p>Below are some screenshots showcasing the key features of the application:</p>
+
+<div align="center">
+    <img src="index.png" alt="Index Page" width="500" />
+    <p><b>Figure 1:</b> Index Page</p>
+</div>
+
+<div align="center">
+    <img src="registration.png" alt="Registration Page" width="500" />
+    <p><b>Figure 2:</b> User Registration Page</p>
+</div>
+
+<div align="center">
+    <img src="login.png" alt="Login Page" width="500" />
+    <p><b>Figure 3:</b> User Login Page</p>
+</div>
+
+<div align="center">
+    <img src="forgotpassword.png" alt="Forgot Password Page" width="500" />
+    <p><b>Figure 4:</b> Forgot Password Page</p>
+</div>
+
+<div align="center">
+    <img src="forgotpassword1.png" alt="Change Password Page" width="500" />
+    <p><b>Figure 5:</b> Change Password Page</p>
+</div>
+
+<div align="center">
+    <img src="home.png" alt="Home Page" width="500" />
+    <p><b>Figure 6:</b> Home Page</p>
+</div>
+
+<div align="center">
+    <img src="viewentries.png" alt="View Entries Page" width="500" />
+    <p><b>Figure 7:</b> View Entries Page</p>
+</div>
+
+<div align="center">
+    <img src="addentry.png" alt="Add Entry Page" width="500" />
+    <p><b>Figure 8:</b> Add Entry Page</p>
+</div>
+
+<div align="center">
+    <img src="editentry.png" alt="Edit Entry Page" width="500" />
+    <p><b>Figure 9:</b> Edit Entry Page</p>
+</div>
+
+<div align="center">
+    <img src="removeentry.png" alt="Remove Entry Page" width="500" />
+    <p><b>Figure 10:</b> Remove Entry Page</p>
+</div>
+
+<div align="center">
+    <img src="readentry.png" alt="Read Entry Page" width="500" />
+    <p><b>Figure 11:</b> Read Entry Page</p>
+</div>
+
+<div align="center">
+    <img src="viewprofile.png" alt="View Profile Page" width="500" />
+    <p><b>Figure 12:</b> View Profile Page</p>
+</div>
+
+<div align="center">
+    <img src="updateprofile.png" alt="Update Profile Page" width="500" />
+    <p><b>Figure 13:</b> Update Profile Page</p>
+</div>
+
+<div align="center">
+    <img src="accountdeletion.png" alt="Delete Account Page" width="500" />
+    <p><b>Figure 14:</b> Delete Account Page</p>
+</div>
 
 <hr>
-
 
 <h2>🤝 Contributing</h2>
 <p>
